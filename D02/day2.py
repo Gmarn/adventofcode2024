@@ -24,16 +24,32 @@ def solve_part1(data):
 
     return safe_lines_count
 
+def safe_line_removal(line):
+    print('Next line: ', line)
+    if safe_line(line):
+        return True
+
+    for i in range(len(line)):
+        part = line[:i] + line[i+1:]
+        if safe_line(part):
+            return True
+
+    return False
 
 def solve_part2(data):
+    count = 0
+    for line in data:
+        if safe_line_removal(line):
+            count += 1
+
     # Not done
-    return "IN Progress"
+    return count
 
 
 def main():
     # Read input file
     data = []
-    with open("test_input.txt", "r") as file:
+    with open("D02/input.txt", "r") as file:
         for line in file.readlines():
             line_with_number = []
             for number in line.split(' '):
@@ -44,7 +60,7 @@ def main():
 
     # Solve and print results
     print("Part 1:", solve_part1(data))
-    # print("Part 2:", solve_part2(data))
+    print("Part 2:", solve_part2(data))
 
 
 if __name__ == "__main__":
